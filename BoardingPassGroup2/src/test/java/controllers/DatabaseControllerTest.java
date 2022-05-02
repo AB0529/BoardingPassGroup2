@@ -1,23 +1,19 @@
-package database;
+package controllers;
 
-import database.models.BoardingPass;
+import controllers.models.BoardingPass;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-class DatabaseTest {
+class DatabaseControllerTest {
 
-    Database db;
+    DatabaseController db;
     BoardingPass pass;
 
     @BeforeEach
     void setUp() {
-        db = new Database("jdbc:sqlite:src/test/resources/BoardingPassesTEST.db");
+        db = new DatabaseController("jdbc:sqlite:src/test/resources/BoardingPassesTEST.db");
         pass = new BoardingPass(
                 1,
                 "May 19th",

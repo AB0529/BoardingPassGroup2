@@ -1,12 +1,10 @@
-import database.Database;
-import database.models.BoardingPass;
-
-import java.sql.SQLException;
-
+import controllers.DatabaseController;
 public class Main {
     public static void main(String[] args) {
         String dbPath = Main.class.getResource("BoardingPassesDEV.db").getPath();
-        Database db = new Database("jdbc:sqlite:" + dbPath);
+        DatabaseController db = new DatabaseController("jdbc:sqlite:" + dbPath);
+
+        db.createTable();
 
         // Add some code here!
     }

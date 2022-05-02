@@ -1,4 +1,4 @@
-package database.models;
+package controllers.models;
 
 public class BoardingPass {
     private int number;

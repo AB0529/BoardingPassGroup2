@@ -1,19 +1,19 @@
-package database;
+package controllers;
 
-import database.models.BoardingPass;
+import controllers.models.BoardingPass;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Database {
+public class DatabaseController {
     /*
     * Handles database connection and queries
     * */
     private String url;
     private Connection connection;
 
-    public Database(String url) {
+    public DatabaseController(String url) {
         this.url = url;
 
         try {
