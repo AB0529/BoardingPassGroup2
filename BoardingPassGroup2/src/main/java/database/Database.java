@@ -11,12 +11,13 @@ public class Database {
     * Handles database connection and queries
     * */
     private String url;
+    private Connection connection;
 
     public Database(String url) {
         this.url = url;
 
         try {
-            Connection connection = DriverManager.getConnection(url);
+            connection = DriverManager.getConnection(url);
 
             System.out.println("Connected to driver: " + connection.getMetaData().getDriverName());
         } catch (SQLException e) {
@@ -178,7 +179,7 @@ public class Database {
 
             s.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(e);
         }
     }
 
@@ -287,7 +288,7 @@ public class Database {
      * @param id the number of the pass to update
      * @param newPhone the new phone to assign
      */
-    public void updatePassPhonelByNumber(int id, String newPhone) {
+    public void updatePassPhoneByNumber(int id, String newPhone) {
         try (Connection conn = DriverManager.getConnection(url)) {
             PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
                     "phone_number = ?" +
@@ -419,5 +420,9 @@ public class Database {
 
     public String getUrl() {
         return url;
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 }
