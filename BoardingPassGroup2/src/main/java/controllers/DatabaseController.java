@@ -85,6 +85,8 @@ public class DatabaseController {
                         ));
             }
 
+            res.close();
+
             return passes;
 
         } catch (SQLException e) {
@@ -158,6 +160,7 @@ public class DatabaseController {
                 s.setInt(11, id);
 
                 s.execute();
+                s.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -178,6 +181,7 @@ public class DatabaseController {
             s.setInt(2, id);
 
             s.executeUpdate();
+            s.close();
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -198,6 +202,7 @@ public class DatabaseController {
             s.setInt(2, id);
 
             s.executeUpdate();
+            s.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -218,6 +223,7 @@ public class DatabaseController {
             s.setInt(2, id);
 
             s.executeUpdate();
+            s.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -238,6 +244,7 @@ public class DatabaseController {
             s.setInt(2, id);
 
             s.executeUpdate();
+            s.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -258,6 +265,7 @@ public class DatabaseController {
             s.setInt(2, id);
 
             s.executeUpdate();
+            s.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -278,6 +286,7 @@ public class DatabaseController {
             s.setInt(2, id);
 
             s.executeUpdate();
+            s.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -298,6 +307,7 @@ public class DatabaseController {
             s.setInt(2, id);
 
             s.executeUpdate();
+            s.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -318,6 +328,7 @@ public class DatabaseController {
             s.setInt(2, id);
 
             s.executeUpdate();
+            s.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -358,6 +369,7 @@ public class DatabaseController {
             s.setInt(2, id);
 
             s.executeUpdate();
+            s.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -378,6 +390,7 @@ public class DatabaseController {
             s.setInt(2, id);
 
             s.executeUpdate();
+            s.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -416,6 +429,7 @@ public class DatabaseController {
         s.setDouble(11, pass.getPrice());
 
         s.execute();
+        s.close();
     }
 
     public String getUrl() {

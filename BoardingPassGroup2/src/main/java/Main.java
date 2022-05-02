@@ -1,4 +1,5 @@
 import controllers.DatabaseController;
+
 public class Main {
     public static void main(String[] args) {
         String dbPath = Main.class.getResource("BoardingPassesDEV.db").getPath();
