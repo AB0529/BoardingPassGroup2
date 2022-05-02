@@ -163,6 +163,204 @@ public class Database {
     }
 
     /**
+     * Assigns a new pass number to an existing pass
+     * @param id the the pass number to update
+     * @param newID the new number to assign
+     */
+    public void updatePassNumberByNumber(int id, int newID) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                    "boarding_pass_number = ?" +
+                    " WHERE boarding_pass_number = ?");
+
+            s.setInt(1, newID);
+            s.setInt(2, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Assigns a new date to an existing pass
+     * @param id the number of the pass to update
+     * @param newDate the new date to assign
+     */
+    public void updatePassDateByNumber(int id, String newDate) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                    "date = ?" +
+                    " WHERE boarding_pass_number = ?");
+
+            s.setString(1, newDate);
+            s.setInt(2, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Assigns a new origin to an existing pass
+     * @param id the number of the pass to update
+     * @param newOrigin the new date to assign
+     */
+    public void updatePassOriginByNumber(int id, String newOrigin) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                    "origin = ?" +
+                    " WHERE boarding_pass_number = ?");
+
+            s.setString(1, newOrigin);
+            s.setInt(2, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Assigns a new destination to an existing pass
+     * @param id the number of the pass to update
+     * @param newDest the new destination to assign
+     */
+    public void updatePassDestinationByNumber(int id, String newDest) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                    "destination = ?" +
+                    " WHERE boarding_pass_number = ?");
+
+            s.setString(1, newDest);
+            s.setInt(2, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Assigns a new name to an existing pass
+     * @param id the number of the pass to update
+     * @param newName the new name to assign
+     */
+    public void updatePassNameByNumber(int id, String newName) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                    "name = ?" +
+                    " WHERE boarding_pass_number = ?");
+
+            s.setString(1, newName);
+            s.setInt(2, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Assigns a new email to an existing pass
+     * @param id the number of the pass to update
+     * @param newEmail the new email to assign
+     */
+    public void updatePassEmailByNumber(int id, String newEmail) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                    "email = ?" +
+                    " WHERE boarding_pass_number = ?");
+
+            s.setString(1, newEmail);
+            s.setInt(2, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Assigns a new number to an existing pass
+     * @param id the number of the pass to update
+     * @param newPhone the new phone to assign
+     */
+    public void updatePassPhonelByNumber(int id, String newPhone) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                    "phone_number = ?" +
+                    " WHERE boarding_pass_number = ?");
+
+            s.setString(1, newPhone);
+            s.setInt(2, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Assigns a new gender to an existing pass
+     * @param id the number of the pass to update
+     * @param newGender the new phone to assign
+     */
+    public void updatePassGenderlByNumber(int id, String newGender) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                    "gender = ?" +
+                    " WHERE boarding_pass_number = ?");
+
+            s.setString(1, newGender);
+            s.setInt(2, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Assigns a new eta to an existing pass
+     * @param id the number of the pass to update
+     * @param newETA the new phone to assign
+     */
+    public void updatePassETAlByNumber(int id, String newETA) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                    "eta = ?" +
+                    " WHERE boarding_pass_number = ?");
+
+            s.setString(1, newETA);
+            s.setInt(2, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Assigns a new departure to an existing pass
+     * @param id the number of the pass to update
+     * @param newDeparture the new departure to assign
+     */
+    public void updatePassDepartureByNumber(int id, String newDeparture) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                    "departure_time = ?" +
+                    " WHERE boarding_pass_number = ?");
+
+            s.setString(1, newDeparture);
+            s.setInt(2, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Assigns a new price to an existing pass
+     * @param id the number of the pass to update
+     * @param newPrice the new departure to assign
+     */
+    public void updatePassPriceByNumber(int id, String newPrice) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                    "price = ?" +
+                    " WHERE boarding_pass_number = ?");
+
+            s.setString(1, newPrice);
+            s.setInt(2, id);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
      * Inserts a boarding pass object into the database
      * @param pass the boarding pass to insert
      */
