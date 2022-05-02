@@ -1,8 +1,13 @@
 import database.Database;
 
+import java.sql.SQLException;
+
 public class Main {
     public static void main(String[] args) {
-        Database db = new Database("jdbc:sqlite:src/main/resources/BoardingPasses.db");
+        String dbPath = Main.class.getResource("BoardingPasses.db").getPath();
+        Database db = new Database("jdbc:sqlite:" + dbPath);
+
+        db.createTable();
 
         System.out.println("Hello");
     }
