@@ -175,6 +175,8 @@ public class Database {
 
             s.setInt(1, newID);
             s.setInt(2, id);
+
+            s.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -193,6 +195,8 @@ public class Database {
 
             s.setString(1, newDate);
             s.setInt(2, id);
+
+            s.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -211,6 +215,8 @@ public class Database {
 
             s.setString(1, newOrigin);
             s.setInt(2, id);
+
+            s.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -229,6 +235,8 @@ public class Database {
 
             s.setString(1, newDest);
             s.setInt(2, id);
+
+            s.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -247,6 +255,8 @@ public class Database {
 
             s.setString(1, newName);
             s.setInt(2, id);
+
+            s.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -265,6 +275,8 @@ public class Database {
 
             s.setString(1, newEmail);
             s.setInt(2, id);
+
+            s.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -283,6 +295,8 @@ public class Database {
 
             s.setString(1, newPhone);
             s.setInt(2, id);
+
+            s.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -293,7 +307,7 @@ public class Database {
      * @param id the number of the pass to update
      * @param newGender the new phone to assign
      */
-    public void updatePassGenderlByNumber(int id, String newGender) {
+    public void updatePassGenderByNumber(int id, String newGender) {
         try (Connection conn = DriverManager.getConnection(url)) {
             PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
                     "gender = ?" +
@@ -301,6 +315,8 @@ public class Database {
 
             s.setString(1, newGender);
             s.setInt(2, id);
+
+            s.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -311,14 +327,16 @@ public class Database {
      * @param id the number of the pass to update
      * @param newETA the new phone to assign
      */
-    public void updatePassETAlByNumber(int id, String newETA) {
+    public void updatePassETAByNumber(int id, double newETA) {
         try (Connection conn = DriverManager.getConnection(url)) {
             PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
                     "eta = ?" +
                     " WHERE boarding_pass_number = ?");
 
-            s.setString(1, newETA);
+            s.setDouble(1, newETA);
             s.setInt(2, id);
+
+            s.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -337,6 +355,8 @@ public class Database {
 
             s.setString(1, newDeparture);
             s.setInt(2, id);
+
+            s.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -347,14 +367,16 @@ public class Database {
      * @param id the number of the pass to update
      * @param newPrice the new departure to assign
      */
-    public void updatePassPriceByNumber(int id, String newPrice) {
+    public void updatePassPriceByNumber(int id, double newPrice) {
         try (Connection conn = DriverManager.getConnection(url)) {
             PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
                     "price = ?" +
                     " WHERE boarding_pass_number = ?");
 
-            s.setString(1, newPrice);
+            s.setDouble(1, newPrice);
             s.setInt(2, id);
+
+            s.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
-        String dbPath = Main.class.getResource("BoardingPassesPROD.db").getPath();
+        String dbPath = Main.class.getResource("BoardingPassesDEV.db").getPath();
         Database db = new Database("jdbc:sqlite:" + dbPath);
 
         db.createTable();
@@ -25,27 +25,9 @@ public class Main {
         } catch (Exception e) {
             System.out.println("Cannot add duplicate pass numbers");
         }
+        System.out.println(db.findPassByNumber(1));
 
-        BoardingPass pass = db.findPassByNumber(1);
-
-        System.out.println(pass);
-
-        db.updatePassByNumber(1, new BoardingPass(
-                1,
-                "March 20th",
-                "Texas",
-                "Ohio",
-                "AMOGUS",
-                "amogus@sus.com",
-                "1234",
-                "male",
-                2.5,
-                "NOW!!",
-                420.69));
-
-        pass = db.findPassByNumber(1);
-        System.out.println(pass);
-
-        System.out.println("Hello");
+        db.updatePassDestinationByNumber(1, "Florida");
+        System.out.println(db.findPassByNumber(1));
     }
 }
