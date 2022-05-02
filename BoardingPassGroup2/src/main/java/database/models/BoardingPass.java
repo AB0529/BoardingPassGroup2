@@ -4,6 +4,7 @@ public class BoardingPass {
     private int number;
     private String date;
     private String origin;
+    private String destination;
     private String name;
     private String email;
     private String phoneNumber;
@@ -14,10 +15,11 @@ public class BoardingPass {
 
     public BoardingPass() {}
 
-    public BoardingPass(int number, String date, String origin, String name, String email, String phoneNumber, String gender, double eta, String departureTime, double price) {
+    public BoardingPass(int number, String date, String origin, String destination, String name, String email, String phoneNumber, String gender, double eta, String departureTime, double price) {
         this.number = number;
         this.date = date;
         this.origin = origin;
+        this.destination = destination;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -63,6 +65,10 @@ public class BoardingPass {
         return origin;
     }
 
+    public String getDestination() {
+        return destination;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -97,6 +103,10 @@ public class BoardingPass {
 
     public void setOrigin(String origin) {
         this.origin = origin;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     public void setPhoneNumber(String phoneNumber) {
