@@ -116,4 +116,21 @@ public class BoardingPass {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "BoardingPass{" +
+                "number=" + number +
+                ", date='" + date + '\'' +
+                ", origin='" + origin + '\'' +
+                ", destination='" + destination + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", gender='" + gender + '\'' +
+                ", eta=" + eta +
+                ", departureTime='" + departureTime + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

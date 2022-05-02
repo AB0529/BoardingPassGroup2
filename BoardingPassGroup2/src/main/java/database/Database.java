@@ -97,7 +97,7 @@ public class Database {
      */
     public BoardingPass findPassByNumber(int id) {
         try (Connection conn = DriverManager.getConnection(url)) {
-            PreparedStatement s = conn.prepareStatement("SELECT 1 FROM passes WHERE boarding_pass_number = ?");
+            PreparedStatement s = conn.prepareStatement("SELECT * FROM passes WHERE boarding_pass_number = ?");
 
             s.setInt(1, id);
             ResultSet res = s.executeQuery();
@@ -120,47 +120,81 @@ public class Database {
                     res.getDouble("price"));
 
         } catch (SQLException e) {
-            throw  new RuntimeException(e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Updates a pass with a new one
+     * @param id the boarding pass number to update
+     * @param newPass the new pass which will replace old one
+     */
+    public void updatePassByNumber(int id, BoardingPass newPass) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                            "date = ?," +
+                            "origin = ?," +
+                            "destination = ?," +
+                            "name = ?," +
+                            "email = ?," +
+                            "phone_number = ?," +
+                            "gender = ?," +
+                            "eta = ?," +
+                            "departure_time = ?," +
+                            "price = ?" +
+                            " WHERE boarding_pass_number = ?");
+
+                s.setString(1, newPass.getDate());
+                s.setString(2, newPass.getOrigin());
+                s.setString(3, newPass.getDestination());
+                s.setString(4, newPass.getName());
+                s.setString(5, newPass.getEmail());
+                s.setString(6, newPass.getPhoneNumber());
+                s.setString(7, newPass.getGender());
+                s.setDouble(8, newPass.getEta());
+                s.setString(9, newPass.getDepartureTime());
+                s.setDouble(10, newPass.getPrice());
+                s.setInt(11, id);
+
+                s.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     /**
      * Inserts a boarding pass object into the database
      * @param pass the boarding pass to insert
-     * @return the result set of the insertion
      */
-    public ResultSet insertPass(BoardingPass pass) {
-        try (Connection conn = DriverManager.getConnection(url)) {
-            PreparedStatement s = conn.prepareStatement("INSERT INTO passes(" +
-                    "boarding_pass_number," +
-                    "date," +
-                    "origin," +
-                    "destination," +
-                    "name," +
-                    "email," +
-                    "phone_number," +
-                    "gender," +
-                    "eta," +
-                    "departure_time," +
-                    "price) " +
-                    "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    public void insertPass(BoardingPass pass) throws Exception {
+        Connection conn = DriverManager.getConnection(url);
+        PreparedStatement s = conn.prepareStatement("INSERT INTO passes(" +
+                "boarding_pass_number," +
+                "date," +
+                "origin," +
+                "destination," +
+                "name," +
+                "email," +
+                "phone_number," +
+                "gender," +
+                "eta," +
+                "departure_time," +
+                "price) " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-            s.setInt(1, pass.getNumber());
-            s.setString(2, pass.getDate());
-            s.setString(3, pass.getOrigin());
-            s.setString(4, pass.getDestination());
-            s.setString(5, pass.getName());
-            s.setString(6, pass.getEmail());
-            s.setString(7, pass.getPhoneNumber());
-            s.setString(8, pass.getGender());
-            s.setDouble(9, pass.getEta());
-            s.setString(10, pass.getDepartureTime());
-            s.setDouble(11, pass.getPrice());
+        s.setInt(1, pass.getNumber());
+        s.setString(2, pass.getDate());
+        s.setString(3, pass.getOrigin());
+        s.setString(4, pass.getDestination());
+        s.setString(5, pass.getName());
+        s.setString(6, pass.getEmail());
+        s.setString(7, pass.getPhoneNumber());
+        s.setString(8, pass.getGender());
+        s.setDouble(9, pass.getEta());
+        s.setString(10, pass.getDepartureTime());
+        s.setDouble(11, pass.getPrice());
 
-            return s.executeQuery();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+        s.execute();
     }
 
     public String getUrl() {
