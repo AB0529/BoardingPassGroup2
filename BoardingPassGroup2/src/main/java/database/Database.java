@@ -1,9 +1,12 @@
 package database;
 
+import database.models.BoardingPass;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 public class Database {
     /*
@@ -50,6 +53,25 @@ public class Database {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Gets a list of all boarding passes in the database
+     * TODO: implement this
+     * @return list of all boarding passes in database
+     */
+    public List<BoardingPass> getAllPasses() {
+        return null;
+    }
+
+    /**
+     * Gets a boarding pass from an id
+     * TODO: implement this
+     * @param id the id to look for
+     * @return the found boarding pass or null
+     */
+    public BoardingPass findByID(int id) {
+        return null;
     }
 
     public String getUrl() {
