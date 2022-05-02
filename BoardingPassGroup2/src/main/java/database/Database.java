@@ -2,13 +2,10 @@ package database;
 
 import database.models.BoardingPass;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Implement adding data
 public class Database {
     /*
     * Handles database connection and queries
@@ -58,21 +55,146 @@ public class Database {
 
     /**
      * Gets a list of all boarding passes in the database
-     * TODO: implement this
      * @return list of all boarding passes in database
      */
     public List<BoardingPass> getAllPasses() {
-        return null;
-    }
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("SELECT * FROM passes");
+            ResultSet res = s.executeQuery();
+            List<BoardingPass> passes = new ArrayList<>();
+
+            // Did not find
+            if (!res.next())
+                return passes;
+
+            // Add each pass to passes list
+            while (res.next()) {
+                passes.add(new BoardingPass(
+                                res.getInt("boarding_pass_number"),
+                                res.getString("date"),
+                                res.getString("origin"),
+                                res.getString("destination"),
+                                res.getString("name"),
+                                res.getString("email"),
+                                res.getString("phone_number"),
+                                res.getString("gender"),
+                                res.getDouble("eta"),
+                                res.getString("departure_time"),
+                                res.getDouble("price")
+                        ));
+            }
+
+            return passes;
+
+        } catch (SQLException e) {
+            throw  new RuntimeException(e);
+        }    }
 
     /**
      * Gets a boarding pass from an id
-     * TODO: implement this
      * @param id the id to look for
      * @return the found boarding pass or null
      */
-    public BoardingPass findByID(int id) {
-        return null;
+    public BoardingPass findPassByNumber(int id) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("SELECT * FROM passes WHERE boarding_pass_number = ?");
+
+            s.setInt(1, id);
+            ResultSet res = s.executeQuery();
+
+            // Did not find
+            if (!res.next())
+                return null;
+
+            return new BoardingPass(
+                    res.getInt("boarding_pass_number"),
+                    res.getString("date"),
+                    res.getString("origin"),
+                    res.getString("destination"),
+                    res.getString("name"),
+                    res.getString("email"),
+                    res.getString("phone_number"),
+                    res.getString("gender"),
+                    res.getDouble("eta"),
+                    res.getString("departure_time"),
+                    res.getDouble("price"));
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Updates a pass with a new one
+     * @param id the boarding pass number to update
+     * @param newPass the new pass which will replace old one
+     */
+    public void updatePassByNumber(int id, BoardingPass newPass) {
+        try (Connection conn = DriverManager.getConnection(url)) {
+            PreparedStatement s = conn.prepareStatement("UPDATE passes SET " +
+                            "date = ?," +
+                            "origin = ?," +
+                            "destination = ?," +
+                            "name = ?," +
+                            "email = ?," +
+                            "phone_number = ?," +
+                            "gender = ?," +
+                            "eta = ?," +
+                            "departure_time = ?," +
+                            "price = ?" +
+                            " WHERE boarding_pass_number = ?");
+
+                s.setString(1, newPass.getDate());
+                s.setString(2, newPass.getOrigin());
+                s.setString(3, newPass.getDestination());
+                s.setString(4, newPass.getName());
+                s.setString(5, newPass.getEmail());
+                s.setString(6, newPass.getPhoneNumber());
+                s.setString(7, newPass.getGender());
+                s.setDouble(8, newPass.getEta());
+                s.setString(9, newPass.getDepartureTime());
+                s.setDouble(10, newPass.getPrice());
+                s.setInt(11, id);
+
+                s.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Inserts a boarding pass object into the database
+     * @param pass the boarding pass to insert
+     */
+    public void insertPass(BoardingPass pass) throws Exception {
+        Connection conn = DriverManager.getConnection(url);
+        PreparedStatement s = conn.prepareStatement("INSERT INTO passes(" +
+                "boarding_pass_number," +
+                "date," +
+                "origin," +
+                "destination," +
+                "name," +
+                "email," +
+                "phone_number," +
+                "gender," +
+                "eta," +
+                "departure_time," +
+                "price) " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        s.setInt(1, pass.getNumber());
+        s.setString(2, pass.getDate());
+        s.setString(3, pass.getOrigin());
+        s.setString(4, pass.getDestination());
+        s.setString(5, pass.getName());
+        s.setString(6, pass.getEmail());
+        s.setString(7, pass.getPhoneNumber());
+        s.setString(8, pass.getGender());
+        s.setDouble(9, pass.getEta());
+        s.setString(10, pass.getDepartureTime());
+        s.setDouble(11, pass.getPrice());
+
+        s.execute();
     }
 
     public String getUrl() {
