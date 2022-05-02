@@ -64,10 +64,6 @@ public class DatabaseController {
             ResultSet res = s.executeQuery();
             List<BoardingPass> passes = new ArrayList<>();
 
-            // Did not find
-            if (!res.next())
-                return passes;
-
             // Add each pass to passes list
             while (res.next()) {
                 passes.add(new BoardingPass(
