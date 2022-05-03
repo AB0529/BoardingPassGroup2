@@ -10,8 +10,8 @@ public class DatabaseController {
     /*
     * Handles database connection and queries
     * */
-    private String url;
-    private Connection connection;
+    private final String url;
+    private final Connection connection;
 
     public DatabaseController(String url) {
         this.url = url;

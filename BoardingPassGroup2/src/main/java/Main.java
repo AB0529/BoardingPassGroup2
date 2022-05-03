@@ -1,7 +1,5 @@
 import controllers.DatabaseController;
 import controllers.GUIController;
-import controllers.models.Input;
-
 public class Main {
     public static void main(String[] args) {
         // Initialize database
@@ -12,6 +10,7 @@ public class Main {
 
         // Initialize GUI
         // TODO: Move everything inside here
-        new GUIController();
+        GUIController guiController = new GUIController();
+        guiController.setDatabaseController(db);
     }
 }

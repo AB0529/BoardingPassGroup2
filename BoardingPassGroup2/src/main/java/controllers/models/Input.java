@@ -2,9 +2,16 @@ package controllers.models;
 
 public class Input {
     private int boardingPassNo;
-    private String departureDate,departureTime,originCode,destinationCode;
+    private final String departureDate;
+    private final String departureTime;
+    private final String originCode;
+    private final String destinationCode;
     private Long etaHr, ticketPrice;
-    private String name, email, phoneNo, Gender,age;
+    private final String name;
+    private final String email;
+    private final String phoneNo;
+    private final String Gender;
+    private final String age;
 
 
     public Input(String departureDate, String departureTime, String originCode, String destinationCode, String name, String email, String phoneNo, String gender, String age) {
