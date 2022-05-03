@@ -113,6 +113,7 @@ public GUI(){
 
 
         frame.add(btnPanel);
+        
        // btnPanel.setBounds(50,550,300,50);
         frame.setSize(400,680);
         frame.setVisible(true);
