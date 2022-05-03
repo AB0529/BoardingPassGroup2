@@ -11,15 +11,7 @@ public class Main {
         db.createTable();
 
         // Initialize GUI
-        GUIController guiController = new GUIController();
-
-        // Grab the user input
-        // TODO: fix this and make it work
-        Input input = guiController.getUserInput();
-
-        System.out.println(input);
-
-        if (input != null)
-            System.out.println(input);
+        // TODO: Move everything inside here
+        new GUIController();
     }
 }
