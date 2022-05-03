@@ -9,7 +9,6 @@ public class Main {
         db.createTable();
 
         // Initialize GUI
-        // TODO: Move everything inside here
         GUIController guiController = new GUIController();
         guiController.setDatabaseController(db);
     }
