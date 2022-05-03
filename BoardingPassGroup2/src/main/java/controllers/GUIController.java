@@ -61,49 +61,83 @@ public class GUIController {
             JPanel btnPanel = new JPanel();
             btnPanel.add(etrBtn);
 
-            //Date Picker
 
-            labels[0] = new JLabel(labelTitles.get(0));
-            fields[0] = new JTextField(10);
-            JButton b = new JButton("Pick Date");
-            JPanel p = new JPanel();
-            p.setLayout(gl);
-            p.add(labels[0]);
-            p.add(fields[0]);
-            p.add(b);
-            // p.setBounds(50,50,300,50);
-            frame.add(p);
-            b.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent ae) {
-                    fields[0].setText(DatePicker(frame));
-                }
-            });
 
-            ArrayList<String[]> metaOptions = new ArrayList<>();
+
+            ArrayList<String[]> metaOptions = getComboBoxOptions();
 
             String[] genderOption = {"Male", "Female", "Transgender", "Non-binary", "Prefer not to respond"};
 
 
+
+
+
             //ComboBoxes or TextFields (4,5,6,8)
 
-            for(int i=1;i< labelTitles.size();i++){
+            for(int i=0;i< labelTitles.size();i++){
 
-                // if((i==4)||(i==5)||(i==6)||(i==8)) {
-                labels[i] = new JLabel(labelTitles.get(i));
-                fields[i] = new JTextField(16);
                 JPanel panel = new JPanel();
-                panel.setLayout(gl);
-                panel.add(labels[i]);
-                panel.add(fields[i]);
-                frame.add(panel);
-                // }else{
+                switch (i){
+                    case 0:  //departure date
+                        labels[i] = new JLabel(labelTitles.get(0));
+                        fields[i] = new JTextField(10);
+                        JButton b = new JButton("Pick Date");
+                        panel.setLayout(gl);
+                        panel.add(labels[i]);
+                        panel.add(fields[i]);
+                        panel.add(b);
+                        frame.add(panel);
+                        b.addActionListener(new ActionListener() {
+                            public void actionPerformed(ActionEvent ae) {
+                                fields[0].setText(DatePicker(frame));
+                            }
+                        });
+                        break;
+                    case 1: //departure time
+                    case 2: //departure city
+                    case 3: //destination city
+                    case 7: //gender
+                        labels[i] = new JLabel(labelTitles.get(i));
+                        String[] optionBuf = metaOptions.get(i);
+                        comboBoxes[i] =new JComboBox<>(optionBuf);
+                        panel.setLayout(gl);
+                        panel.add(labels[i]);
+                        panel.add(comboBoxes[i]);
+                        frame.add(panel);
+                        break;
+                    case 4:  //name
+                    case 5: //email
+                    case 6: //phone number
+                    case 8: //age
+                        labels[i] = new JLabel(labelTitles.get(i));
+                        fields[i] = new JTextField(16);
+                        panel.setLayout(gl);
+                        panel.add(labels[i]);
+                        panel.add(fields[i]);
+                        frame.add(panel);
+                        break;
 
-                //     labels[i] = new JLabel(labelTitles.get(i));
-                //     comboBoxes[i] =new JComboBox<>();
 
 
-                //  }
+                }
 
+                /*
+                if((i==4)||(i==5)||(i==6)||(i==8)) {
+                    labels[i] = new JLabel(labelTitles.get(i));
+                    fields[i] = new JTextField(16);
+                    JPanel panel = new JPanel();
+                    panel.setLayout(gl);
+                    panel.add(labels[i]);
+                    panel.add(fields[i]);
+                    frame.add(panel);
+                }else{
+
+                     labels[i] = new JLabel(labelTitles.get(i));
+                     comboBoxes[i] =new JComboBox<>();
+
+
+                }
+                */
                 //   panel.setBounds(50,60*(1+i),300,50);
 
 
@@ -137,27 +171,35 @@ public class GUIController {
 
             String[] inputs = new String[labels.length];
 
-            for(int i=0;i<inputs.length;i++){
+
+
+
+            departureDate=fields[0].getText();
+            departureTime = comboBoxes[1].getSelectedItem().toString();
+            originCode = comboBoxes[2].getSelectedItem().toString();
+            destinationCode= comboBoxes[3].getSelectedItem().toString();
+            name= fields[4].getText();
+            email= fields[5].getText();
+            phoneNo= fields[6].getText();
+            gender= comboBoxes[7].getSelectedItem().toString();
+            age= fields[8].getText();
+
+
+            //Clayton santizes the input
+
+            if(checkParseInteger(age)){
+                Input i =  new Input(departureDate, departureTime, originCode, destinationCode,  name, email,  phoneNo,  gender, age);
+                System.out.println(i.toString());
 
             }
 
 
-            departureDate=fields[0].getText();
-            departureTime = fields[1].getText();
-            originCode = fields[2].getText();
-            destinationCode= fields[3].getText();
-            name= fields[4].getText();
-            email= fields[5].getText();
-            phoneNo= fields[6].getText();
-            gender= fields[7].getText();
-            age= fields[8].getText();
+
+
+            // Kristian tranforms i to boarding pass and inputs to db
 
 
 
-
-
-            Input i =  new Input(departureDate, departureTime, originCode, destinationCode,  name, email,  phoneNo,  gender, age);
-            System.out.println(i.toString());
         }
     }
 
@@ -239,6 +281,81 @@ public class GUIController {
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.set(year, month, Integer.parseInt(day));
         return sdf.format(cal.getTime());
+    }
+
+    private boolean checkParseInteger(String current){
+        boolean isParsable = false;
+        try{
+            Integer.parseInt(current);
+            isParsable=true;
+        }catch (NumberFormatException currentError){
+            JOptionPane.showMessageDialog(frame, "Please enter age as a number");
+        }
+
+
+        return isParsable;
+    }
+
+
+
+    private ArrayList<String[]> getComboBoxOptions(){
+        ArrayList<String[]> options = new ArrayList<>();
+
+        for (int i=0;i<comboBoxes.length;i++){
+            options.add(null);
+        }
+
+
+        for(int i=0;i<comboBoxes.length;i++){
+            String fileName;
+            switch (i){
+
+
+                case 1: //departure times
+                    fileName = "BoardingPassGroup2/src/main/resources/departure times";
+                    try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+                       // List<String> genderList = stream.collect(Collectors.toList());
+                        String[] buf = stream.toArray(String[]::new);
+                        options.set(i,buf);
+                    }catch (IOException ioException){
+                        System.out.println(ioException.getMessage());
+                    }
+                    break;
+                case 2: //cities
+                case 3: //cities
+                    fileName = "BoardingPassGroup2/src/main/resources/cities";
+                    try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+                       // List<String> genderList = stream.collect(Collectors.toList());
+                        String[] buf = stream.toArray(String[]::new);
+                        options.set(i,buf);
+                    }catch (IOException ioException){
+                        System.out.println(ioException.getMessage());
+                    }
+                    break;
+                case 7:
+                    fileName = "BoardingPassGroup2/src/main/resources/genderOptions";
+                    try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+                        //List<String> genderList = stream.collect(Collectors.toList());
+                        String[] buf = stream.toArray(String[]::new);
+                        options.set(i,buf);
+                    }catch (IOException ioException){
+                        System.out.println(ioException.getMessage());
+                    }
+                    break;
+                default:
+                    break;
+
+            }
+
+
+        }
+
+
+
+
+        return options;
+
+
     }
 
 }
