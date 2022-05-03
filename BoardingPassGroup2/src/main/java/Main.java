@@ -14,7 +14,10 @@ public class Main {
         GUIController guiController = new GUIController();
 
         // Grab the user input
+        // TODO: fix this and make it work
         Input input = guiController.getUserInput();
+
+        System.out.println(input);
 
         if (input != null)
             System.out.println(input);
