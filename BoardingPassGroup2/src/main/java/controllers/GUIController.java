@@ -1,3 +1,5 @@
+package controllers;
+
 import controllers.models.Input;
 
 import javax.swing.*;
@@ -12,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class GUI {
+public class GUIController {
     JFrame frame;
     JButton etrBtn;
     JLabel[] labels;
@@ -26,69 +28,67 @@ public class GUI {
     JLabel l = new JLabel("", JLabel.CENTER);
     String day = "";
 
-    public static void main(String[] args) {
-        new GUI();
-    }
 
 
-public GUI(){
-    String departureDate, departureTime, originCode, destinationCode, name, email, phoneNo, gender;
-    int age;
 
-    frame  = new JFrame("Customer Details");
+    public GUIController(){
+        String departureDate, departureTime, originCode, destinationCode, name, email, phoneNo, gender;
+        int age;
 
-
-    String fileName = "BoardingPassGroup2/src/main/resources/FieldNames";
-
-    GridLayout gl = new GridLayout(0,3);
-
-    frame.setLayout(new GridLayout(0,1));
+        frame  = new JFrame("Customer Details");
 
 
-    //read file into stream, try-with-resources
-    try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
+        String fileName = "BoardingPassGroup2/src/main/resources/FieldNames";
 
-        List<String> labelTitles = stream.collect(Collectors.toList());
+        GridLayout gl = new GridLayout(0,3);
 
-        labels = new JLabel[labelTitles.size()];
-        fields = new JTextField[labelTitles.size()];
-        comboBoxes = new JComboBox[labelTitles.size()];
-
-        //Submit Button
-
-        etrBtn = new JButton("submit");
-        etrBtn.addActionListener(this::actionPerformed);
-        JPanel btnPanel = new JPanel();
-        btnPanel.add(etrBtn);
-
-        //Date Picker
-
-        labels[0] = new JLabel(labelTitles.get(0));
-        fields[0] = new JTextField(10);
-        JButton b = new JButton("Pick Date");
-        JPanel p = new JPanel();
-        p.setLayout(gl);
-        p.add(labels[0]);
-        p.add(fields[0]);
-        p.add(b);
-       // p.setBounds(50,50,300,50);
-        frame.add(p);
-        b.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent ae) {
-                fields[0].setText(DatePicker(frame));
-            }
-        });
-
-        ArrayList<String[]> metaOptions = new ArrayList<>();
-
-        String[] genderOption = {"Male", "Female", "Transgender", "Non-binary", "Prefer not to respond"};
+        frame.setLayout(new GridLayout(0,1));
 
 
-        //ComboBoxes or TextFields (4,5,6,8)
+        //read file into stream, try-with-resources
+        try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
 
-        for(int i=1;i< labelTitles.size();i++){
+            List<String> labelTitles = stream.collect(Collectors.toList());
 
-           // if((i==4)||(i==5)||(i==6)||(i==8)) {
+            labels = new JLabel[labelTitles.size()];
+            fields = new JTextField[labelTitles.size()];
+            comboBoxes = new JComboBox[labelTitles.size()];
+
+            //Submit Button
+
+            etrBtn = new JButton("submit");
+            etrBtn.addActionListener(this::actionPerformed);
+            JPanel btnPanel = new JPanel();
+            btnPanel.add(etrBtn);
+
+            //Date Picker
+
+            labels[0] = new JLabel(labelTitles.get(0));
+            fields[0] = new JTextField(10);
+            JButton b = new JButton("Pick Date");
+            JPanel p = new JPanel();
+            p.setLayout(gl);
+            p.add(labels[0]);
+            p.add(fields[0]);
+            p.add(b);
+            // p.setBounds(50,50,300,50);
+            frame.add(p);
+            b.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {
+                    fields[0].setText(DatePicker(frame));
+                }
+            });
+
+            ArrayList<String[]> metaOptions = new ArrayList<>();
+
+            String[] genderOption = {"Male", "Female", "Transgender", "Non-binary", "Prefer not to respond"};
+
+
+            //ComboBoxes or TextFields (4,5,6,8)
+
+            for(int i=1;i< labelTitles.size();i++){
+
+                // if((i==4)||(i==5)||(i==6)||(i==8)) {
                 labels[i] = new JLabel(labelTitles.get(i));
                 fields[i] = new JTextField(16);
                 JPanel panel = new JPanel();
@@ -96,39 +96,39 @@ public GUI(){
                 panel.add(labels[i]);
                 panel.add(fields[i]);
                 frame.add(panel);
-           // }else{
+                // }else{
 
-           //     labels[i] = new JLabel(labelTitles.get(i));
-           //     comboBoxes[i] =new JComboBox<>();
-
-
-          //  }
-
-         //   panel.setBounds(50,60*(1+i),300,50);
+                //     labels[i] = new JLabel(labelTitles.get(i));
+                //     comboBoxes[i] =new JComboBox<>();
 
 
+                //  }
+
+                //   panel.setBounds(50,60*(1+i),300,50);
+
+
+            }
+
+
+
+            frame.add(btnPanel);
+
+            // btnPanel.setBounds(50,550,300,50);
+            frame.setSize(400,680);
+            frame.setVisible(true);
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
 
 
-        frame.add(btnPanel);
-
-       // btnPanel.setBounds(50,550,300,50);
-        frame.setSize(400,680);
-        frame.setVisible(true);
 
 
-    } catch (IOException e) {
-        e.printStackTrace();
+
     }
-
-
-
-
-
-
-}
-//Submit Button Pressed
+    //Submit Button Pressed
     public void actionPerformed(ActionEvent e) {
         String s = e.getActionCommand();
         if (s.equals("submit")) {
@@ -156,12 +156,12 @@ public GUI(){
 
 
 
-           Input i =  new Input(departureDate, departureTime, originCode, destinationCode,  name, email,  phoneNo,  gender, age);
-           System.out.println(i.toString());
+            Input i =  new Input(departureDate, departureTime, originCode, destinationCode,  name, email,  phoneNo,  gender, age);
+            System.out.println(i.toString());
         }
     }
 
-//Pop Up Date Picker
+    //Pop Up Date Picker
     public String DatePicker(JFrame parent) {
         d = new JDialog();
         d.setModal(true);
