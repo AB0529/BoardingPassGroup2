@@ -1,3 +1,5 @@
+import controllers.models.Input;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -6,12 +8,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static java.awt.SystemColor.text;
 
 public class GUI {
     JFrame frame;
@@ -113,7 +112,7 @@ public GUI(){
 
 
         frame.add(btnPanel);
-        
+
        // btnPanel.setBounds(50,550,300,50);
         frame.setSize(400,680);
         frame.setVisible(true);

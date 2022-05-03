@@ -1,3 +1,5 @@
+package controllers.models;
+
 public class Input {
     private int boardingPassNo;
     private String departureDate,departureTime,originCode,destinationCode;
@@ -80,7 +82,7 @@ public class Input {
 
     @Override
     public String toString() {
-        return "Input{" +
+        return "controllers.models.Input{" +
                 "boardingPassNo=" + boardingPassNo +
                 ", departureDate='" + departureDate + '\'' +
                 ", departureTime='" + departureTime + '\'' +
