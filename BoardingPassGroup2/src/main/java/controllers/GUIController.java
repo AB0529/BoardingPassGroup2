@@ -2,7 +2,7 @@ package controllers;
 
 import controllers.models.BoardingPass;
 import controllers.models.Input;
-
+import java.util.Random;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -145,6 +145,8 @@ public class GUIController {
                 // Put logic here!
 
                 int passETA = 0;
+                Random rand = new Random();
+                passETA =   rand.nextInt(3);
                 // Put logic here! This must be unique!!
 
                 int passNumber = 0;
