@@ -143,11 +143,25 @@ public class GUIController {
 
                 // Kristian transforms i to boarding pass and inputs to db
                 // Put logic here!
+
                 int passETA = 0;
                 // Put logic here! This must be unique!!
+
                 int passNumber = 0;
                 // Put logic here!
                 double price = 0;
+                int ageInt = Integer.valueOf(input.getAge());
+                if(gender=="female"){
+                    price= price*.75;
+                }
+                if(ageInt <= 12){
+                    price = price*.5;
+                }
+                else if (ageInt >=60){
+                    price  = price * .40;
+                }
+
+
 
                 pass.setNumber(passNumber);
                 pass.setDate(departureDate);
