@@ -2,7 +2,7 @@ package controllers;
 
 import controllers.models.BoardingPass;
 import controllers.models.Input;
-
+import java.util.Random;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 
 public class GUIController {
     private DatabaseController databaseController;
@@ -135,6 +136,7 @@ public class GUIController {
 
             //Clayton santizes the input
 
+
             if (checkParseInteger(input.getAge())) {
                 System.out.println(input);
 
@@ -143,11 +145,32 @@ public class GUIController {
 
                 // Kristian transforms i to boarding pass and inputs to db
                 // Put logic here!
+
                 int passETA = 0;
+                Random rand = new Random();
+                passETA =   rand.nextInt(3);
                 // Put logic here! This must be unique!!
+
                 int passNumber = 0;
+                Random random = new Random(System. nanoTime());
+                int randomInt = random. nextInt(100000);
+                passNumber = randomInt;
+
+
                 // Put logic here!
                 double price = 0;
+                int ageInt = Integer.valueOf(input.getAge());
+                if(gender=="female"){
+                    price= price*.75;
+                }
+                if(ageInt <= 12){
+                    price = price*.5;
+                }
+                else if (ageInt >=60){
+                    price  = price * .40;
+                }
+
+
 
                 pass.setNumber(passNumber);
                 pass.setDate(departureDate);
@@ -193,6 +216,7 @@ public class GUIController {
             }
         }
     }
+
 
     //Pop Up Date Picker
     public String DatePicker(JFrame parent) {

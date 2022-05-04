@@ -128,7 +128,7 @@ public class BoardingPass {
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", gender='" + gender + '\'' +
-                ", eta=" + eta +
+                ", eta=" + eta + "Hours" +
                 ", departureTime='" + departureTime + '\'' +
                 ", price=" + price +
                 '}';
