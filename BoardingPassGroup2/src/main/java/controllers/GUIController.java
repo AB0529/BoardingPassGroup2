@@ -134,43 +134,22 @@ public class GUIController {
 
             Input input = new Input(departureDate, departureTime, originCode, destinationCode, name, email, phoneNo, gender, age);
 
-            //Clayton santizes the input
-
-
             if (checkParseInteger(input.getAge())) {
-                System.out.println(input);
-
                 BoardingPass pass = new BoardingPass();
-                List<BoardingPass> allPasses = databaseController.getAllPasses();
 
-                // Kristian transforms i to boarding pass and inputs to db
-                // Put logic here!
+                Random rand = new Random(System.nanoTime());
+                int passETA = rand.nextInt(3);
+                int passNumber = rand.nextInt(100000);
 
-                int passETA = 0;
-                Random rand = new Random();
-                passETA =   rand.nextInt(3);
-                // Put logic here! This must be unique!!
+                double price = rand.nextInt(10000);
+                int ageInt = Integer.parseInt(input.getAge());
 
-                int passNumber = 0;
-                Random random = new Random(System. nanoTime());
-                int randomInt = random. nextInt(100000);
-                passNumber = randomInt;
-
-
-                // Put logic here!
-                double price = 0;
-                int ageInt = Integer.valueOf(input.getAge());
-                if(gender=="female"){
-                    price= price*.75;
-                }
-                if(ageInt <= 12){
-                    price = price*.5;
-                }
-                else if (ageInt >=60){
-                    price  = price * .40;
-                }
-
-
+                if (gender.equals("female"))
+                    price *= .75;
+                if (ageInt <= 12)
+                    price *= .5;
+                else if (ageInt >= 60)
+                    price *= .40;
 
                 pass.setNumber(passNumber);
                 pass.setDate(departureDate);
@@ -194,9 +173,9 @@ public class GUIController {
                 String friendlyFormatPath = getClass().getClassLoader().getResource("passes").getPath();
 
                 try {
-                    BufferedWriter writer = new BufferedWriter(new FileWriter(friendlyFormatPath + pass.getNumber() + ".md"));
+                    BufferedWriter writer = new BufferedWriter(new FileWriter(friendlyFormatPath + "/" + pass.getNumber() + ".md"));
                     writer.write(
-                            String.format("# Boarding Pass `%d`" + "Name: %s\nEmail: %s\nPhone: %s\nPrice Payed: %f\n---\n# Flight Details\n`%s -> %s` (%f hours)\nDeparture Date: %s\nDeparture Time: %s",
+                            String.format("# Boarding Pass `%d`\n" + "Name: %s\nEmail: %s\nPhone: %s\nPrice Payed: %.2f\n---\n# Flight Details\n`%s -> %s` (%.2f hours)\nDeparture Date: %s\nDeparture Time: %s",
                                     pass.getNumber(),
                                     pass.getName(),
                                     pass.getEmail(),
@@ -207,6 +186,7 @@ public class GUIController {
                                     pass.getEta(),
                                     pass.getDate(),
                                     pass.getDepartureTime()));
+                    writer.close();
 
                     System.out.println("File " + friendlyFormatPath + pass.getNumber() + ".md" + " wrote!");
                 } catch (IOException ex) {
