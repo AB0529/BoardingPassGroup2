@@ -189,6 +189,7 @@ public class GUIController {
                     writer.close();
 
                     System.out.println("File " + friendlyFormatPath + pass.getNumber() + ".md" + " wrote!");
+                    JOptionPane.showMessageDialog(frame, "Boarding Pass: " + passNumber);
                 } catch (IOException ex) {
                     System.out.println("Error while writing to file: " + ex);
                 }
